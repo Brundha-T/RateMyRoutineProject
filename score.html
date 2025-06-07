@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RateMyRoutine - Score</title>
+  <link rel="stylesheet" href="score.css" />
+</head>
+<body>
+
+<h1>Your Productivity Score</h1>
+
+<div class="score-box">
+  <div class="score" id="score">--</div>
+  <div class="recommendation" id="recommendation">Loading recommendation...</div>
+  <div class="btn-group">
+    <button id="signOutBtn">Sign Out</button>
+  </div>
+</div>
+
+<script>
+  const tasks = JSON.parse(sessionStorage.getItem('tasks')) || [];
+
+  let score = Math.min(tasks.length * 10, 100);
+
+  let recommendation = '';
+  if(score >= 80) {
+    recommendation = 'Great job! Keep up the excellent productivity and maintain your routine.';
+  } else if(score >= 50) {
+    recommendation = 'Good effort! Try to add more focus and consistency to improve further.';
+  } else if(score > 0) {
+    recommendation = 'You can do better! Prioritize important tasks and avoid distractions.';
+  } else {
+    recommendation = 'No tasks added yet. Start by adding daily routines on your dashboard.';
+  }
+
+  document.getElementById('score').textContent = score + ' / 100';
+  document.getElementById('recommendation').textContent = recommendation;
+
+  document.getElementById('signOutBtn').addEventListener('click', () => {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+  });
+</script>
+
+</body>
+</html>

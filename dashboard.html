@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RateMyRoutine - Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+  <h1>RateMyRoutine Dashboard</h1>
+
+  <div class="task-input">
+    <input type="text" id="taskInput" placeholder="Task Name" />
+    <input type="time" id="startTime" />
+    <input type="time" id="endTime" />
+    <button class="add-btn" id="addTaskBtn">Add</button>
+  </div>
+
+  <ul class="task-list" id="taskList"></ul>
+
+  <button id="viewScoreBtn">View Score</button>
+
+  <script>
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskInput = document.getElementById('taskInput');
+    const startTimeInput = document.getElementById('startTime');
+    const endTimeInput = document.getElementById('endTime');
+    const taskList = document.getElementById('taskList');
+    const viewScoreBtn = document.getElementById('viewScoreBtn');
+
+    let tasks = [];
+
+    function renderTasks() {
+      taskList.innerHTML = '';
+      tasks.forEach((task, index) => {
+        const li = document.createElement('li');
+        li.textContent = task;
+        const delBtn = document.createElement('button');
+        delBtn.textContent = '×';
+        delBtn.className = 'delete-btn';
+        delBtn.addEventListener('click', () => {
+          tasks.splice(index, 1);
+          renderTasks();
+        });
+        li.appendChild(delBtn);
+        taskList.appendChild(li);
+      });
+    }
+
+    addTaskBtn.addEventListener('click', () => {
+      const taskName = taskInput.value.trim();
+      const startTime = startTimeInput.value;
+      const endTime = endTimeInput.value;
+
+      if (taskName && startTime && endTime) {
+        const taskText = `${taskName} (${startTime} - ${endTime})`;
+        tasks.push(taskText);
+        taskInput.value = '';
+        startTimeInput.value = '';
+        endTimeInput.value = '';
+        renderTasks();
+      } else {
+        alert("Please fill in all fields.");
+      }
+    });
+
+    taskInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        addTaskBtn.click();
+      }
+    });
+
+    viewScoreBtn.addEventListener('click', () => {
+      sessionStorage.setItem('tasks', JSON.stringify(tasks));
+      window.location.href = 'score.html';
+    });
+  </script>
+
+</body>
+</html>

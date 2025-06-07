@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RateMyRoutine - Signup</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="logo">RateMyRoutine</div>
+    <nav>
+      <a href="index.html">🏠 Home</a>
+      <a href="about.html">ℹ️ About</a>
+    </nav>
+  </header>
+
+  <!-- Main Title -->
+  <h1 class="main-title">Sign Up</h1>
+
+  <!-- Signup Form -->
+  <div class="container">
+    <form id="signupForm">
+      <input type="text" id="username" placeholder="Username" required minlength="3" />
+      <input type="password" id="password" placeholder="Password" required minlength="6" />
+      <input type="number" id="age" placeholder="Age" required min="10" max="100" />
+      <input type="submit" value="Sign Up" />
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 RateMyRoutine. All rights reserved.
+  </footer>
+
+  <!-- Signup Handler -->
+  <script>
+    const form = document.getElementById('signupForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Simulate successful signup
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+
+</body>
+</html>
